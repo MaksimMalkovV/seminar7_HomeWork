@@ -1,7 +1,11 @@
-﻿Console.WriteLine("Задача 1; Задайте двумерный массив размером m×n, заполненный случайными вещественными числами.");
-Console.WriteLine("Задача 2; апишите программу, которая на вход принимает позиции элемента в двумерном массиве, \n        и возвращает значение этого элемента или же указание, что такого элемента нет.");
-Console.WriteLine("Задача 3; Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.");
-Console.WriteLine("Введите номер задачи от 1 до 3;");
+﻿Console.Clear();
+
+Console.WriteLine("Задача 47; Задайте двумерный массив размером m*n, заполненный случайными вещественными числами.");
+Console.WriteLine("Задача 50; Напишите программу, которая на вход принимает позиции элемента в двумерном массиве, и возвращает значение этого элемента или же указание, что такого элемента нет.");
+Console.WriteLine("Задача 52; Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.");
+Console.WriteLine("Задача 60; Сформируйте трёхмерный массив из неповторяющихся двузначных чисел. Напишите программу, которая будет построчно выводить массив, добавляя индексы каждого элемента.");
+Console.WriteLine("Задача 62; Напишите программу, которая заполнит спирально массив 4 на 4.");
+Console.WriteLine("Введите номер задачи от 1 до 5;");
 int name = Convert.ToInt32(Console.ReadLine()!);
 
 switch (name)
@@ -37,8 +41,8 @@ switch (name)
         break;
 
     case 3:
-        int rows1 = ReadLine("Введите значение строк: ");
-        int columns1 = ReadLine("введите значение столбцов; ");
+        int rows1 = 5;
+        int columns1 = 5;
         double[,] array1 = new double[rows1, columns1];
         FullArray(array1);
 
@@ -73,8 +77,8 @@ switch (name)
         break;
 
     case 2:
-        int rows2 = ReadLine("Введите значение строк: ");
-        int columns2 = ReadLine("введите значение столбцов; ");
+        int rows2 = 5;
+        int columns2 = 5;
         double[,] array2 = new double[rows2, columns2];
 
         FullArray(array2);
@@ -102,6 +106,107 @@ switch (name)
         break;
 
 
+
+
+
+    case 4:
+        int[,,] array4 = new int[2, 2, 5];
+        int[] nums = new int[90];
+        FillArray1(nums);
+        FullArray2(array4, nums);
+        PrintArray2(array4);
+        
+
+        void FillArray1(int[] Array)
+        {
+            for (int i = 0; i < Array.Length; i++)
+            {
+                Array[i] = 10 + i;
+            }
+        }
+
+        void FullArray2(int[,,] Array, int[] element)
+        {
+            int count = 0; int number;
+            for (int i = 0; i < Array.GetLength(0); i++)
+            {
+                for (int j = 0; j < Array.GetLength(1); j++)
+                {
+                    for (int k = 0; k < Array.GetLength(2); k++)
+                    {
+                        number = new Random().Next(90);
+                        while (element[number] == 0)
+                        {
+                            number = count;
+                            count++;
+                        }
+                        Array[i, j, k] = element[number];
+                        element[number] = 0;
+                        count = 0;
+                    }
+                }
+            }
+        }
+
+        void PrintArray2(int[,,] Array)
+        {
+            for (int i = 0; i < Array.GetLength(0); i++)
+            {
+
+                for (int j = 0; j < Array.GetLength(1); j++)
+                {
+                    for (int k = 0; k < Array.GetLength(2); k++)
+                    {
+                        Console.Write($"{Array[i, j, k]}({i},{j},{k}) ");
+                    }
+                    Console.WriteLine();
+                }
+            }
+
+
+        }
+        break;
+
+
+
+
+    case 5:
+        int n = 4;
+        int number = 1;
+
+        Print2(SpiralArray(n, number));
+
+        int[,] SpiralArray(int n, int number)
+        {
+            int[,] array = new int[n, n];
+            int count = 0;
+            int row; int column;
+            while (number < n * n + 1)
+            {
+                for (column = count; column < n - count; column++) array[count, column] = number++;
+                for (row = count + 1; row < n - count; row++) array[row, n - count - 1] = number++;
+                for (column = n - count - 2; column > count; column--) array[n - count - 1, column] = number++;
+                for (row = n - count - 1; row > count; row--) array[row, count] = number++;
+                count++;
+            }
+            return array;
+        }
+
+        void Print2(int[,] array)
+        {
+            for (int row = 0; row < array.GetLength(0); row++)
+            {
+                for (int column = 0; column < array.GetLength(1); column++)
+                {
+                    Console.Write("{0,6:d2}", array[row, column]);
+                }
+                Console.WriteLine();
+            }
+        }
+        break;
+
+
+
         int ReadLine(string massage)
         {
             Console.WriteLine(massage);
@@ -109,5 +214,6 @@ switch (name)
             return Value;
         }
 }
+
 
 
